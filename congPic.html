@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>爱你的心跳</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+    .container {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        position: absolute;
+        overflow: hidden;;
+    }
+
+    .text{
+        position: absolute;
+        top: 10rem;
+        left:-10rem;
+        z-index: 9999;
+        font-size: 1rem;
+        color: #9b37a7;
+        animation: BOUNCE 5s infinite;
+        animation-direction:alternate;//反向播放
+        overflow: hidden;;
+    }
+
+    .congpic {
+        width: 100%;
+        animation: HEARTBEAT 2.5s infinite;
+
+    }
+    
+    #top span {
+        animation: BOUNCE 2.5s infinite;
+    }
+    
+    @keyframes HEARTBEAT {
+        0% {
+            transform: scale(1);
+        }
+        5% {
+            transform: scale(1.3);
+        }
+        10% {
+            transform: scale(1.1);
+        }
+        15% {
+            transform: scale(1.5);
+        }
+        50% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes BOUNCE {
+        0% {
+            left: -10%;
+            top: 15rem;
+        }
+        59% {
+            left: 30%;
+            top: 5rem;
+        }
+        100% {
+            left: 90%;
+            top: 25rem;
+        }
+    }
+
+
+    @keyframes textA {
+        0% {
+            top: 110px;
+        }
+        10% {
+            top: 80px;
+        }
+        15% {
+            top: 85px;
+        }
+        20% {
+            top: 70px;
+        }
+        75% {
+            top: 110px;
+        }
+        100% {
+            top: 110px;
+        }
+    }
+
+    </style>
+    <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+    var flag = window.localStorage.getItem('visitedFlag');
+    // if(flag){
+    //     alert('抱歉，亲爱的宝贝，你已经玩过一次了~，放下手机出去溜达下');
+    //     location.href = "loveyoudefault.html";
+    // }else {
+    //     window.localStorage.setItem('visitedFlag',true);
+    // }
+
+    
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <span class="text" style="display: none;">点我，带你飞起~</span>
+        <img class="test" src="./img/cong.jpg"/>
+    </div>
+</body>
+
+</html>
+    <script type="text/javascript" >
+        $(function(){
+            setTimeout(function(){
+                $('.test').addClass('congpic');
+                $('.text').show();
+            },1000);
+            $('.text').on('click',function(){
+                alert('让你点，你还真点啊~');
+                location.href = "love.html";
+            });
+        });
+    </script>
