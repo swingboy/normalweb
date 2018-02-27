@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>葱花~</title>
+	</head>
+	<body>
+		<canvas id="canvas" width="500" height="500">浏览器不支持</canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			//浏览器宽高
+			var screenWidth = document.documentElement.clientWidth;
+			var screenHeight = document.documentElement.clientHeight;
+			
+			canvas.width = screenWidth; //显示屏幕的像素
+			canvas.height = screenHeight; //显示屏幕的高度
+			
+			//随机函数
+			function rand(min,max){
+				return Math.floor(Math.random()*(max-min)+min);
+			}
+			function Ball(){
+				//半径
+				this.r =rand(5,100);
+				//圆心
+				this.x = rand(this.r,screenWidth - this.r);
+				this.y = rand(this.r,screenHeight - this.r);
+				//颜色
+				this.color = "rgba("+rand(0,255)+","+rand(0,255)+","+rand(0,255)+","+ Math.random()+ ")" ;
+				//速度
+				this.speedX = rand(1,3)* (rand(0,3)>1?1:-1);
+				this.speedY = rand(1,4) * (rand(0,3)>1?1:-1);
+			}
+			
+			//位置变化
+			Ball.prototype.move = function(){
+				this.x += this.speedX ;
+				this.y += this.speedY ;
+				if (this.x >= screenWidth - this.r) {
+					this.speedX *= -1;	
+				}
+				if (this.x <= this.r) {
+					this.speedX *= -1;
+				}
+				if (this.y >= screenHeight - this.r) {
+					this.speedY *= -1;	
+				}
+				if (this.y <= this.r) {
+					this.speedY *= -1;	
+				}
+			}
+			
+			
+		//画出圆形
+			Ball.prototype.draw = function(){
+				ctx.beginPath();
+				ctx.fillStyle = this.color;
+				ctx.arc(this.x,this.y,this.r,0,Math.PI*2,true);
+				ctx.closePath();
+				ctx.fill();
+			}
+			
+			var balls = [];
+			for (var i = 0;i < 20;i++) {
+			// for (var i = 0;i < 1;i++) {
+				var ball = new Ball();
+				balls.push(ball);
+				ball.draw();
+			}
+			
+			//循环移动
+			function move(){
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				for (var i = 0;i<balls.length;i++) {
+					var ball = balls[i]
+					ball.draw();
+					ball.move();
+				}
+				window.requestAnimationFrame(move);
+			}
+			move()
+		</script>
+	</body>
+</html>

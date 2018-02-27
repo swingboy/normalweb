@@ -1,0 +1,82 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+</head>
+
+<body>
+    <span id="datetime">time</span>
+    <script>
+    function setTime() {
+        var day = "",
+        	month = "",
+        	ampm = "",
+        	ampmhour = "",
+        	myweekday = "",
+        	year = "",
+        	myHours = "",
+        	myMinutes = "",
+        	mySeconds = "";
+
+        mydate = new Date();
+        date = new Date();
+
+        year = mydate.getFullYear();
+		mymonth = date.getMonth() + 1;
+        myweekday = date.getDay();
+        weekday = date.getDay();
+        myday = date.getDate();
+        
+        myHours = mydate.getHours();
+        myMinutes = mydate.getMinutes();
+        mySeconds = mydate.getSeconds();
+
+
+        switch(weekday){
+        	case 0 :
+        		weekday = " 星期日 ";
+        		break;
+        	case 1 :
+        		weekday = " 星期一 ";
+        		break;
+        	case 2 :
+        		weekday = " 星期二 ";
+        		break;
+        	case 3 :
+        		weekday = " 星期三 ";
+        		break;
+        	case 4 :
+        		weekday = " 星期四 ";
+        		break;
+        	case 5 :
+        		weekday = " 星期五 ";
+        		break;
+        	case 6 :
+        		weekday = " 星期六 ";
+        		break;
+        }
+
+        if (myweekday == 0)
+            weekday = " 星期日 ";
+        else if (myweekday == 1)
+            weekday = " 星期一 ";
+        else if (myweekday == 2)
+            weekday = " 星期二 ";
+        else if (myweekday == 3)
+            weekday = " 星期三 ";
+        else if (myweekday == 4)
+            weekday = " 星期四 ";
+        else if (myweekday == 5)
+            weekday = " 星期五 ";
+        else if (myweekday == 6)
+            weekday = " 星期六 ";
+
+
+        datetime.innerText = year + "年" + mymonth + "月" + myday + "日 " + myHours + ":" + myMinutes + ":" + mySeconds + " " + weekday;
+
+        setTimeout("setTime()", 1000);
+    }
+    setTime();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+   "workspace": "/Users/sck/Documents/testgit/mywebsite",
+   "dist": "/Users/sck/Documents/testgit/mywebsite/dist",
+   "src": {
+      "/index.html": {
+         "requires": [],
+         "resources": []
+      }
+   },
+   "ROOTS": {},
+   "PKG": null,
+   "opts": {
+      "debug": true,
+      "prod": true
+   }
+}

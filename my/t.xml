@@ -1,0 +1,22 @@
+<layout id="CUSTOM_AREA" left="0" top="140" width="100" height="40" orientation="horizontal">
+<layout left="10.0" top="14.200000000000001" width="20.400000000000002" height="4.4">
+<text style="fontWeight:400;fontSize:9.0pt;fontFamily:黑体">
+<![CDATA[ <%=_data.titleInfos%> ]]>
+</text>
+</layout>
+
+
+<layout left="10.0" top="14.200000000000001" width="20.400000000000002" height="4.4">
+<text style="fontWeight:400;fontSize:9.0pt;fontFamily:黑体">
+我是文字
+</text>
+</layout>
+<layout left="100.2" top="12.600000000000001" width="20.400000000000002" height="4.4">
+    <image width="5.5" height="4.5" src="http://cloudprint-docs-resource.oss-cn-shanghai.aliyuncs.com/doc_pics/lpml_spec/9-image.png" />
+</layout>
+
+<layout left="1.8" top="2.2" width="30.3" height="30.5">
+<barcode width="22.5" height="20.0" value="http://www.baidu.com" type="qrcode" style="hideText:true"/>
+</layout>
+
+</layout>
