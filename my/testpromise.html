@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	
+	function Promise(fn) {
+	    var value = null,
+	        callbacks = [];  //callbacks为数组，因为可能同时有很多个回调
+	    this.then = function (onFulfilled) {
+	        callbacks.push(onFulfilled);
+	    };
+
+	    function resolve(value) {
+	    	debugger;
+	        callbacks.forEach(function (callback) {
+	        	debugger;
+	            callback(value);
+	        });
+	    }
+	    fn(resolve);
+	}
+
+	var p = new Promise((resolve, reject) => {
+		debugger;
+        setTimeout(function(){
+        	console.log('哈哈');
+        	resolve('啦啦');
+        }, 1000);
+    });
+
+    p.then(function(){
+    	console.log('then');
+    });
+</script>

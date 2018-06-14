@@ -1,0 +1,168 @@
+<html>
+
+</html>
+<script>
+    const log = window.console.log;
+    console.log = (...args) => {
+        log('\nnew line -----\n', ...args)
+        document.body.innerHTML += args.join(' ') + '<br>'
+    }
+
+    const PENDING = 0
+    const FULFILLED = 1
+    const REJECTED = 2
+
+    class Promise {
+        constructor(executor) {
+            debugger;
+            this._deferreds = [];
+            this._state = PENDING;
+            this._value = null;
+            this._reason = null;
+            executor(
+                value => { this._resolve(value)}, 
+                reason => { this._reject(reason)}
+            )
+        }
+
+        _handle(deferred) {
+            if (this._state === PENDING) {
+                this._deferreds.push(deferred);
+            } else {
+                if (typeof (this._state === FULFILLED
+                    ? deferred.onFulfilled : deferred.onRejected) === 'function') {
+                    try {
+                        deferred.resolve(this._state === FULFILLED
+                            ? deferred.onFulfilled(this._value)
+                            : deferred.onRejected(this._reason))
+                    } catch (e) {
+                        deferred.reject(e)
+                    }
+                } else {
+                    this._state === FULFILLED
+                        ? deferred.resolve(this._value) : deferred.reject(this._reason)
+                }
+            }
+        }
+
+        _resolve(value) {
+            if (this._state !== PENDING)
+                return;
+            if (value && value.constructor === this.constructor) {
+                value.then(
+                    value => { this._resolve(value) },
+                    reason => { this._reject(reason) }
+                )
+            } else {
+                this._state = FULFILLED;
+                this._value = value;
+                this._done();
+            }
+        }
+
+        _reject(reason) {
+            if (this._state !== PENDING) return
+            this._state = REJECTED;
+            this._reason = reason;
+            this._done();
+        }
+
+        _done() {
+            window.setTimeout(_ => {
+                this._deferreds.forEach(deferred => { this._handle(deferred) })
+            }, 0)
+        }
+
+        then(onFulfilled, onRejected) {
+            return new this.constructor(
+                (resolve, reject) => {
+                    this._handle({
+                        onFulfilled: onFulfilled,
+                        onRejected: onRejected,
+                        resolve: resolve,
+                        reject: reject
+                    })
+                })
+        }
+
+        catch(onRejected) {
+            return this.then(undefined, onRejected)
+        }
+
+        finally(cb) {
+            if (typeof cb === 'function') {
+                return this.then(value => Promise.resolve(cb()).then(_ => value),
+                    reason => Promise.resolve(cb()).then(_ => { throw reason }))
+            }
+        }
+    }
+
+    Promise.resolve = function (value) {
+        return new Promise((resolve, reject) => {
+            resolve(value)
+        })
+    }
+
+    Promise.reject = function (reason) {
+        return new Promise((resolve, reject) => {
+            reject(reason)
+        })
+    }
+
+    Promise.all = function (iterable) {
+        return new Promise((resolve, reject) => {
+            let values = []
+            for (let i = 0, len = iterable.length; i < len; ++i) {
+                iterable[i].then(value => {
+                    values.push(value)
+                    i >= len - 1 && resolve(values)
+                }, reason => {
+                    reject(reason)
+                })
+            }
+        })
+    }
+
+    Promise.race = function (iterable) {
+        return new Promise((resolve, reject) => {
+            iterable.forEach(value => Promise.resolve(value).then(resolve, reject))
+        })
+    }
+
+
+    // Test
+    let promise = new Promise((resolve, reject) => {
+        debugger;
+        setTimeout(_ => {
+            resolve('value')
+        }, 1000)
+    });
+    // then(value => { console.log(1, value); return '1 to 2 ' + value })
+    // .then(value => { console.log(2, value); return '2 to x' + value })
+    // .then(value => {
+    //         return new Promise((resolve, reject) => {
+    //             setTimeout(_ => { resolve('new promise') }, 2000)
+    //         })
+    //     })
+    // .catch(reason => { console.log('catch 1 ', reason); return reason; })
+    // .then(value => { console.log(3, value) })
+    // .finally(_ => console.log('finally 1'))
+
+    // setTimeout(_ => {
+    //     Promise
+    //         .race(['1 race 1', '1 race 2'])
+    //         .then(value => { console.log(4, value) }, reason => { console.log(5, reason) })
+
+    //     promise
+    //         .then(value => { console.log(6, value + a) })
+    //         .then(undefined, reason => { return Promise.reject('Promise.reject + ' + reason) })
+    //         .catch(reason => { console.log('catch 2 ', reason); return reason; })
+    //         .finally(_ => console.log('finally 2'))
+
+    //     Promise
+    //         .all([Promise.resolve('all 1'), Promise.resolve('all 2'),
+    //         Promise.reject('all 3'), Promise.reject('all 4')])
+    //         .then(value => { console.log(7, ...value) }, reason => { console.log(8, reason) })
+    // }, 5000)
+
+</script>

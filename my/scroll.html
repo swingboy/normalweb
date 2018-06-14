@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>仿浏览器滚动条</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    #demo {
+        width: 300px;
+        height: 500px;
+        border: 1px solid blue;
+        margin: 100px;
+        position: relative;
+        overflow: hidden;
+
+    }
+
+    p {
+        padding: 5px 20px 5px 5px;
+        font-size: 26px;
+        position: relative;
+    }
+
+    #scrll {
+        width: 18px;
+        border-radius: 18px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: red;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <p id="dp">我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容我是文字内容</p>
+        <div id="scrll"></div>
+    </div>
+</body>
+<script type="text/javascript">
+(function(window) {
+    function $(id) {
+        return document.getElementById(id);
+    };
+    // 获取对象
+    var dp = $("dp"),
+        demo = $("demo"),
+        scrll = $("scrll");
+    // 获取dp的长度
+    var dpHeight = dp.offsetHeight;
+    // 获取demo的长度
+    var demoHeight = demo.offsetHeight;
+    // 根据比值计算scrll的长度
+    var scrllHeight = demoHeight * demoHeight / dpHeight;
+    // 如果内容长度小于窗口长度，则滚动条不显示
+    if (dp.offsetHeight < demo.offsetHeight) {
+        scrllHeight = 0;
+    };
+
+    scrll.style.height = scrllHeight + "px";
+    // 获取滚动条和内容移动距离的比例
+    var bilu = (dp.offsetHeight - demo.offsetHeight) / (demo.offsetHeight - scrll.offsetHeight);
+    debugger;
+    // 滚动条滚动事件
+    scrll.onmousedown = function(event) {
+        var event = event || window.event;
+        // 获取鼠标按下的页面坐标
+        // 滚动条滚动时只有top值改变，所有不需要获取pageX
+        var pageY = event.pageY || event.clientY + document.documentElement.scrollTop;
+        // 获取鼠标在scrll内的坐标
+        var scrllY = pageY - demo.offsetTop - scrll.offsetTop;
+        // 给document绑定鼠标移动事件
+        document.onmousemove = function(event) {
+            var event = event || window.event;
+            // 获取鼠标移动时的坐标
+            var moveY = event.pageY || event.clientY + document.documentElement.scrollTop;
+            // 获取滚动条的移动坐标
+            var trueY = moveY - scrllY - demo.offsetTop;
+            // 限制滚动条移动的范围
+            if (trueY < 0) {
+                trueY = 0;
+            };
+            if (trueY > demo.offsetHeight - scrll.offsetHeight) {
+                trueY = demo.offsetHeight - scrll.offsetHeight;
+            };
+            scrll.style.top = trueY + "px";
+            //清除选中文字
+            // window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            // 获取文字区域移动的距离
+            var dpY = trueY * bilu;
+            dp.style.top = -dpY + "px";
+        }
+    };
+    // 鼠标抬起清除鼠标移动事件
+    document.onmouseup = function() {
+        document.onmousemove = null;
+    }
+})(window)
+</script>
+
+</html>

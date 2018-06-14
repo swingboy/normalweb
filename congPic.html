@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>爱你的心跳</title>
+    <title>test</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
@@ -101,20 +101,13 @@
 
     <script type="text/javascript">
     var flag = window.localStorage.getItem('visitedFlag');
-    // if(flag){
-    //     alert('抱歉，亲爱的宝贝，你已经玩过一次了~，放下手机出去溜达下');
-    //     location.href = "loveyoudefault.html";
-    // }else {
-    //     window.localStorage.setItem('visitedFlag',true);
-    // }
-
     
     </script>
 </head>
 
 <body>
     <div class="container">
-        <span class="text" style="display: none;">点我，带你飞起~</span>
+        <span class="text" style="display: none;">etst~</span>
         <img class="test" src="./img/cong.jpg"/>
     </div>
 </body>
@@ -126,8 +119,7 @@
                 $('.test').addClass('congpic');
                 $('.text').show();
             },1000);
-            $('.text').on('click',function(){
-                alert('让你点，你还真点啊~');
+            $('.text').on('click',function(){ 
                 location.href = "love.html";
             });
         });
