@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<!-- 
+    2018年08月15日18:22:26
+    运营新加的对于订单详情、订单列表页“配置”的升级续费
+    所跳转的页面
+-->
+<head>
+    <meta charset="UTF-8">
+    <title>旺店交易</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+        }
+        body {
+            position: relative;
+            font-family: sans-serif;
+            background-color: #f2f3f7;
+        }
+        img {
+            display: block;
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        div {
+            margin: 0 auto;
+        }
+        .main-content {
+            padding-bottom: 80px;
+        }
+        .main-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 86px;
+        }
+        .orderImg{
+            position: absolute;
+            top: 12%;
+            z-index: 1;
+        }
+        .linkA{
+            position: absolute;
+            border: 1px solid red;
+            top: 13%;
+            height: 8%;
+            width: 33%;
+            z-index: 100;
+        }
+        .wdOrderA{
+            position: absolute;
+            border: 1px solid blue;
+            bottom: 3%;
+            height: 6%;
+            width: 23%;
+            left: 31%;
+            z-index: 100;
+        }
+        .rightUsr{
+            position: absolute;
+            border: 1px solid yellow;
+            bottom: 3%;
+            height: 6%;
+            width: 23%;
+            left: 54%;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content" style="position: relative;padding-bottom: 0px;">
+        <div class="linkA" data-index="0" style="left:0%;"></div>
+        <div class="linkA" data-index="1" style="left:33%;"></div>
+        <div class="linkA" data-index="2" style="left:66%;"></div>
+
+        <div class="wdOrderA" style="z-index: 999"></div>
+        <div class="rightUsr" style="z-index: 999"></div>
+
+        <img class="orderImg" src="https://img.alicdn.com/imgextra/i2/350475995/TB2FyIsJQCWBuNjy0FaXXXUlXXa_!!350475995.png"/>
+
+        <img src="https://img.alicdn.com/imgextra/i1/350475995/TB2u1xpmQZmBKNjSZPiXXXFNVXa_!!350475995.png"/>
+        <img src="https://img.alicdn.com/imgextra/i3/350475995/TB28Qo4mOMnBKNjSZFzXXc_qVXa_!!350475995.png"/>
+        <img src="https://img.alicdn.com/imgextra/i3/350475995/TB2ZTdqcPfguuRjSszcXXbb7FXa_!!350475995.png"/>
+        <img src="https://img.alicdn.com/imgextra/i4/350475995/TB2ODgMJKySBuNjy1zdXXXPxFXa_!!350475995.png"/>
+    </div>
+
+    <script src="https://g.alicdn.com/x-bridge/qap-sdk/1.0.10/qn.min.js"></script>
+    <script type="text/javascript" src="https://g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://g.alicdn.com/sj/tqn/m/sdk-mobile.min.js" charset="utf-8"></script>
+    <script src="https://static.superboss.cc/a/hdzt/chaojiqianniu/wdjy/staticPage/main.js" charset="utf-8"></script>
+
+    <script>
+    TOOL.pageLog('wdjy');
+
+    var androidImg = 'https://img.alicdn.com/imgextra/i2/350475995/TB2FyIsJQCWBuNjy0FaXXXUlXXa_!!350475995.png';
+    var iosImg = 'https://img.alicdn.com/imgextra/i3/350475995/TB2U58BcPfguuRjSspaXXaXVXXa_!!350475995.png';
+
+    $(function(){
+        var $orderImg = $(".orderImg"), //底部链接图片,android与iOS图片不一样
+            isIOS = /iPhone/i.test(navigator.userAgent) || /iOS/i.test(navigator.userAgent);//是否是iOS系统
+        
+        var linkMap = {
+            //旺店交易_QAP_Tab订购按钮
+            android: [
+                "https://tb.cn/Ilzh0Ow",
+                "https://tb.cn/sxzh0Ow",
+                'https://tb.cn/LD3i0Ow'
+            ],
+            //旺店交易_QAP_Tab订购按钮IOS
+            ios:[
+                'https://tb.cn/Mfuh0Ow',
+                'https://tb.cn/yknh0Ow',
+                'https://tb.cn/Jkph0Ow',
+            ],
+            //旺店交易_QAP_Tab订购按钮IOS直订
+            iosDirect:[
+                'https://tb.cn/1Zmh0Ow',
+                'https://tb.cn/1Dih0Ow',
+                'https://tb.cn/Jdch0Ow'
+            ]
+        }
+
+        var isDirectOrder = TOOL.queryStringObj.isDirectOrder === 'false' ? false : true;
+        var iOSMessage = '你好，我想升级#旺店交易#高级版：\n55元/季度：https://tb.cn/Mfuh0Ow\n85元/半年：https://tb.cn/yknh0Ow\n138元/年最省钱：https://tb.cn/Jkph0Ow\n发送本消息后点击链接即可订购。';
+
+        isIOS && !isDirectOrder && $orderImg.attr("src", iosImg);
+        
+        $(document).on('click', function(e) {
+            var $target = $(e.target);
+            var index;
+            if($target.is('.linkA')){ // 订购链接
+                var index = $target.data('index') || 0;   
+                if (isIOS) { //iOS版
+                    if (isDirectOrder) {
+                        //如果直接订购的话，应该选择哪个链接呢？
+                        location.href = linkMap.iosDirect[index];
+                    } else {
+                        TOOL.invokeWW('wdjy', iOSMessage);
+                    }
+                }else { //android版
+                    location.href = linkMap.android[index];
+                }
+
+            }
+        });        
+
+        $('.linkA').on('click', function(e){
+            var index = $(e.target).data('index') || 0;
+            if (isIOS) { //iOS版
+                if (isDirectOrder) {
+                    //如果直接订购的话，应该选择哪个链接呢？
+                    location.href = linkMap.iosDirect[index];
+                } else {
+                    TOOL.invokeWW('wdjy', iOSMessage);
+                }
+            }else { //android版
+                location.href = linkMap.android[index];
+            }
+        });
+
+        $('.wdOrderA').on('click', function(){ //旺店订购
+            location.href = 'https://tb.cn/SBHQvNw';
+        });
+        $('.rightUsr').on('click', function(){ // 旺店商品首页
+            TOOL.openPlugin('{"url": "qap://home.js"}', '21470813') 
+        });
+
+
+    });
+    </script>
+</body>
