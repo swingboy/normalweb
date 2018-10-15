@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>活动名称</title>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        .title {
+            background: #FF4141;
+            height: 100px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 30px 20px;
+            align-items: center;
+        }
+        .fs12 {
+            font-size: 12px;
+        }
+        .fs13 {
+            font-size: 13px;
+        }
+        .mt2 {
+            margin-top: 2px;
+        }
+        .titleLeft {
+            flex: 2;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            padding-right: 20px;
+        }
+        .activiTitle {
+            font-size: 20px;
+            color: #ffffff;
+        }
+        .activiDesc {
+            font-size: 13px; 
+            color: #ffffff; 
+            margin-top: 10px; 
+            line-height: 18px;
+        }
+        .youhuiInfo {
+            margin-top: 10px;
+            font-size: 13px;
+            height: 25px;
+            line-height: 25px;
+            background-color: #ffffff;
+            width: 160px;
+            text-align: center;
+            color: #FF4141;
+        }
+        .rightCircle {
+            width: 85px;
+            height: 85px;
+            border-radius: 43px;
+            margin: 0px 10px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+        }
+        .qianggou {
+            font-size: 20px;
+            color: #FF4141;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+        .circleDiv {
+            width: 13px;
+            height: 13px;
+            border-bottom: 1px solid #FF4141;
+            border-right: 1px solid #FF4141;
+            transform: rotate(45deg);
+        }
+        .activiTime {
+            background: #F17125;
+            ;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+        }
+        .itemContent {
+            display: flex;
+            background-color: #F2F3F7;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .item {
+            width: 49%;
+            margin-top: 10px;
+            background-color: #ffffff;
+            position: relative;
+        }
+        .innerItemInfo {
+            position: absolute;
+            right: 10px;
+            text-align: center;
+            vertical-align: center;
+            background-color: #F23C3C;
+            border-radius: 15px 0px 0px 0px;
+            bottom: 71px;
+            height: 50px;
+            width: 110px;
+            color: #ffffff;
+        }
+        .innerItem {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+        }
+        .itemImg {
+            width: 100%;
+            height: auto;
+        }
+        .tangle {
+            background: #F23C3C;
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            transform: rotate(45deg);
+        }
+        .aboutBuy {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .triangle-left {
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-right: 6px solid red;
+            border-bottom: 6px solid transparent;
+        }
+        .buyBtn {
+            background: #F23C3C;
+            height: 38px;
+            width: 55px;
+            line-height: 38px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .itemBtm {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .price {
+            font-size: 14px;
+            color: #F23C3C;
+        }
+        .timeNum {
+            background-color: #ffffff;
+            color: #F17125;
+            border-radius: 3px;
+            padding: 2px;
+            margin-left: 2px;
+        }
+        .ml2 {
+            margin-left: 2px;
+        }
+        .mr2 {
+            margin-right: 2px;
+        }
+    </style>
+</head>
+<body> 
+    <div class="content">
+        <div class="title">
+            <div class="titleLeft">
+                <div class="activiTitle">春季上新第一波！</div>
+                <div class="activiDesc">新春上新大促，全称满300减200元，先到先得</div>
+                <div class="youhuiInfo">限时优惠：<span class="limitTime"><span class="start">08.24</span>-<span class="end">08.29</span></div>
+            </div>
+            <div class="rightCircle">
+                <span class="qianggou">抢购</span>
+                <span class="qianggou">专区</span>
+                <div class="circleDiv"></div>
+            </div>
+        </div>
+        <div class="activiTime">
+            <span class="activiStatus">距活动开始</span>
+            <span class="reverse">
+                <span class="day">
+                    <span class="timeNum">0</span>
+                    <span class="timeNum">0</span>
+                </span>
+                <span class="cla2 ml2">天</span>
+                <span class="shiFenMiao">
+                    <span class="cla0 timeNum">0</span><span class="cla1 timeNum">0</span><span class="cla2 ml2 mr2">时</span><span class="cla3 timeNum">0</span><span class="cla4 timeNum">0</span><span class="cla5 ml2 mr2">分</span><span class="cla6 timeNum">0</span><span class="cla7 timeNum">0</span><span class="cla8 ml2">秒</span>
+                </span>
+            </span>
+        </div>
+        <div class="itemContent">
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">  
+    window.ip = returnCitySN["cip"];
+</script>
+
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return unescape(r[2]);
+
+        return null;
+    }
+
+    function setIniatalParams() {
+        window.activityId = getQueryString('activityId');
+        window.taobaoId = getQueryString('taobaoId');
+    }
+
+    function isWeiXin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        alert(ua);
+        return (ua.match(/MicroMessenger/i) == 'micromessenger' || ua.match(/_SQ_/i) == '_sq_');
+    }
+    function timeFun(times, callBack) {
+        var timer = null;
+        var times = times/1000;
+        timer = setInterval(function () {
+            var day = 0,
+                hour = 0,
+                minute = 0,
+                second = 0;
+            if (times > 0) {
+                day = Math.floor(times / (60 * 60 * 24));
+                hour = Math.floor(times / (60 * 60)) - (day * 24);
+                minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (day <= 9) day = '0' + day;
+            if (hour <= 9) hour = '0' + hour;
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            times --;
+            callBack && callBack(day + '', hour + '时' + minute + '分' + second + '秒');
+        }, 1000);
+
+        if (times <= 0) {
+            clearInterval(timer);
+        }
+    }
+
+    function getFormateData(timestap) {
+        if(!timestap) {
+            return '';
+        }
+
+        var date = new Date(timestap);
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        if(m < 10) {
+            m = '0' + m; 
+        }
+        if(d < 10) {
+            d = '0' + d;
+        }
+
+        return m + '.' + d;
+    }
+    
+    $(function () {
+        var resp = {
+            "data": {
+                "activityId": 18758,
+                "activityName": "测试内容p9lg",
+                "type": 1,
+                "commodity": [
+                    {
+                        // "handPrice": 53125,
+                        "fullConfig": '3',
+                        "numIid": 72656,
+                        "picUrl": "http://img01.taobaocdn.com/bao/uploaded/i1/15995027911619323/T1855xFX0hXXXXXXXX_!!0-item_pic.jpg",
+                        "price": 25067,
+                        "title": "测试内容myhe"
+                    }
+                ],
+                "end": 47210,
+                "introduction": "测试内容v393",
+                "rule": {},
+                "showWatermark": 51051,
+                "start": 38665,
+                "status": "测试内容5lx5",
+                "time": 11634386017
+            },
+            "message": "测试内容63gp",
+            "result": 85418
+        }
+
+        
+        renderTmp(resp.data);
+            
+        function init(){
+            setIniatalParams();
+            // queryData({
+            //     activityId: window.activityId,
+            //     taobaoId: window.taobaoId
+            // }, function(data) {
+            //     renderTmp(data);
+            // });
+            sendPoint();
+        }
+        
+        //初始化
+        init(); 
+
+        function queryData(params, callback) {
+            $.ajax({
+                type: 'get',
+                url: '/promotion/getActivityForPage',
+                data: params,
+                success: function (res) {
+                    if (!res || !res.data) {
+                        return;
+                    }
+                    callback && callback(res.data);
+                },
+                error: function (err) {
+                    alert('查询错误~');
+                }
+            });
+        }
+
+        function sendPoint(){
+            $.ajax({
+                type: 'get',
+                url: '/promotion/index',
+                data: {
+                    flag: window.ip,
+                    taobaoId: window.taobaoId
+                },
+                success: function (res) {
+                },
+                error: function (err) {
+                }
+            });
+        }
+
+        function renderTmp(data) {
+            if(!data) {
+                return;
+            }
+            
+            timeFun(data.time, function(dayStr , shiFenMiao) {
+                
+                var dayArr = dayStr.split('');
+                var dayHtml = dayArr.map(function(item){
+                    return '<span class="timeNum">' + item + '</span>';
+                }).join('');
+
+                $('.day').html(dayHtml);
+
+                var $shiFenMiaoDom = $('.shiFenMiao span');
+                var shiFenMiaoArr = shiFenMiao.split('');
+                for(var i = 0; i< $shiFenMiaoDom.length; i++ ){
+                    $shiFenMiaoDom.eq(i).text(shiFenMiaoArr[i]);
+                }
+            });
+
+            document.title = data.name;
+            
+            if(data.status == 'waitStart') {
+                $('.activiStatus').text('距离活动开始还剩');
+            }
+            if(data.status == 'processing') {
+                $('.activiStatus').text('距离活动结束还剩');
+            }
+            if(data.status == 'finished') {
+                $('.activiStatus').text('活动已结束');
+                $('.reverse').empty();
+            }
+
+            //活动时间
+            var start = getFormateData(data.start);
+            var end = getFormateData(data.end);
+            
+            $('.start').text(start);
+            $('.end').text(end);
+
+            $('.activiDesc').text(data.introduction || '');
+
+            var html = data.commodity.map(function (item) {
+                var handPriceHtml = '';
+    
+                if(item.handPrice) {// 到手价
+                    handPriceHtml = '<span class="fs12">到手价￥</span><span class="fs13">' + item.handPrice +'</span>';
+                }else {
+                    handPriceHtml = '<span class="fs12">满<span class=fs13">'+ (data.fullConfig || 0) +'</span>件退1件最低单品</span>';
+                }
+                var title = item.title || '';
+
+                return '<div class="item">' + 
+                    '<div class="innerItemInfo">' + 
+                        '<div class="innerItem">' + 
+                            '<div><span class="fs12">' + (title.length > 7 ? (title.substr(0,7) + '...') : title)  +'</span></div>' + 
+                            '<div class="mt2">' +
+                                handPriceHtml + 
+                            '</div>' +
+                        '</div>' + 
+                    '</div>' + 
+                    '<img class="itemImg" src="' + item.picUrl +'_240x240.jpg"/>' + 
+                    '<div class="itemBtm">' + 
+                        '<div>' + 
+                            '<span class="price">￥</span>' + 
+                            '<span class="price">' + item.price+'</span>' + 
+                        '</div>' + 
+                        '<div class="aboutBuy">' + 
+                            '<div class="triangle-left"></div>' + 
+                            '<div class="buyBtn" data-numIid="' + item.numIid +'">购买</div>' +
+                        '</div>' + 
+                    '</div>' + 
+                '</div>';
+            }).join('');
+
+            $('.itemContent').html(html);
+            
+            $('.buyBtn').on('click', function (e) {
+                var id = $(e.target).attr('data-numIid')
+                //跳转到淘宝详情中
+                if (isWeiXin()) {
+                    location.href = 'http://shop.wtao.site/rayItem.html?userId=' + window.taobaoId + '&id=' + id;
+                }
+                //跳转到淘宝链接
+                location.href = 'https://detail.tmall.com/item.htm?id=' + id;
+            });
+        }
+    });
+</script>
